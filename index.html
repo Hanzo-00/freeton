@@ -130,18 +130,38 @@
             font-size: 1.2em;
             cursor: pointer;
         }
+        /* New styles for language selection */
+        .language-selector {
+            margin-top: 20px; /* Add space above */
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1em;
+        }
     </style>
 </head>
 <body>
 
     <div class="marquee">
         <div class="marquee-content">
-            <span>John Doe withdrew $20 | Jane Smith withdrew $15 | Alex Johnson withdrew $10 | ...</span>
+<span id="marquee-text">
+    John Doe withdrew $45 | Jane Smith withdrew $32 | Alex Johnson withdrew $78 | Emily Davis withdrew $12 | Michael Brown withdrew $59 | Sarah Wilson withdrew $24 | David Miller withdrew $88 | Jessica Garcia withdrew $37 | Chris Martinez withdrew $54 | Ashley Rodriguez withdrew $19 | Daniel Hernandez withdrew $66 | Maria Lopez withdrew $73 | Matthew Walker withdrew $92 | Samantha Hall withdrew $26 | William Allen withdrew $47 | Olivia Young withdrew $81 | Anthony King withdrew $36 | Isabella Wright withdrew $11 | Joshua Scott withdrew $95 | Mia Green withdrew $50 | Benjamin Adams withdrew $67 | Ava Nelson withdrew $83 | Samuel Carter withdrew $14 | Sophia Mitchell withdrew $27 | Elijah Perez withdrew $72 | Charlotte Roberts withdrew $49 | Jacob Turner withdrew $65 | Amelia Phillips withdrew $93 | Ethan Campbell withdrew $21 | Harper Parker withdrew $38 | James Evans withdrew $46 | Lily Edwards withdrew $70 | Alexander Collins withdrew $86 | Grace Stewart withdrew $40 | Daniel Sanchez withdrew $55 | Scarlett Morris withdrew $60 | Aiden Rivera withdrew $82 | Chloe Cooper withdrew $15 | Noah Reed withdrew $30 | Ella Bailey withdrew $68 | Lucas Bell withdrew $34 | Madison Gomez withdrew $91 | Jackson Wood withdrew $39 | Aria Bennett withdrew $99 | Leo Murphy withdrew $62 | Lily Price withdrew $17 | Nathan Jenkins withdrew $29 | Zoe Simmons withdrew $75 | Christopher Foster withdrew $22 | Ella Harrison withdrew $41
+</span>
         </div>
     </div>
 
     <div class="container" id="login-page">
-        <h1>Login to Earn TON Coins</h1>
+        <h1 id="login-title">Login to Earn TON Coins</h1>
+        <select class="language-selector" id="language-select" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="fa">فارسی</option>
+            <option value="hi">हिंदी</option>
+            <option value="ru">Русский</option>
+            <option value="tr">Türkçe</option>
+        </select>
         <div class="login-form">
             <input type="text" id="username-input" placeholder="Enter Username" required>
             <input type="password" id="password-input" placeholder="Enter Password" required>
@@ -150,27 +170,38 @@
     </div>
 
     <div class="container main-content" id="main-page" style="display:none;">
-        <h1>Welcome, <span id="username-display">User</span></h1>
-
+        <h1 id="welcome-title">Welcome, <span id="username-display">User</span></h1>
+        <p style="color: red;">Join our community and earn points!</p> <!-- Welcome message -->
+        
         <div class="user-info">
             <p>Username: <span id="username">User</span></p>
             <p>Total Points: <span id="points">0</span></p>
         </div>
 
         <div class="share-link">
-            <h3>Share and Earn 250 Points!</h3>
-            <p>Share this link: <a href="#" id="share-link">https://example.com</a></p>
+            <h3>Share and Earn 50 Points!</h3>
+            <p>Share this link: <a href="https://hanzo-00.github.io/freeton/#" id="share-link">https://hanzo-00.github.io/freeton/#</a></p>
             <button onclick="share()">Copy Link</button>
         </div>
 
         <div class="task-section">
             <h3>Complete Tasks to Earn More Points:</h3>
             <ul>
-<li>
-    Subscribe to our YouTube Channel and earn 10 points 
-    <a href="https://www.youtube.com/@-harsh5657" target="_blank" onclick="completeTask('youtube')">Subscribe</a>
-</li>
-                <li>Play a game to earn 20 points <button onclick="completeTask('game')">Play Now</button></li>
+                <li>
+                    <span id="youtube-task">Subscribe to our YouTube Channel and earn 100 points</span>
+                    <a href="https://www.youtube.com/@-harsh5657" target="_blank" onclick="completeTask('youtube')">Subscribe</a>
+                </li>
+                <li>
+                    <span id="game-task">Play a game to earn 20 points (coming soon)</span>
+                </li>
+                <li>
+                    <span id="invite-task">Join our Telegram bot for 1000 points (must join all channels)</span>
+                    <a href="https://t.me/Earn_Toncoin_whalesbot?start=00070hnmq9" target="_blank">Join Bot</a>
+                </li>
+                <li>
+                    <span id="share-fb-task">Share this link on Facebook for 50 points</span>
+                    <button onclick="shareOnFacebook()">Share</button>
+                </li>
             </ul>
         </div>
 
@@ -180,125 +211,75 @@
             <select id="withdraw-method">
                 <option value="wallet">Withdraw to Wallet</option>
                 <option value="bank">Withdraw to Bank</option>
-                <option value="convert">Convert to TOOT</option>
+                <option value="transfer">Transfer to another user</option>
             </select>
             <button onclick="withdrawPoints()">Withdraw</button>
-            <p id="withdraw-info"></p>
+        </div>
+
+        <div class="popup" id="popup">
+            <p>You have completed the tasks!</p>
+            <button onclick="confirmTasks()">Confirm</button>
         </div>
     </div>
 
-    <!-- Popup for daily login -->
-    <div class="popup" id="daily-popup">
-        <p>Day <span id="popup-day">1</span>: Collect <span id="popup-points">100</span> Points!</p>
-        <button onclick="collectDailyPoints()">Collect</button>
-    </div>
-
     <script>
-        let currentUser = null;
-        let users = JSON.parse(localStorage.getItem('users')) || {}; // تحميل بيانات المستخدمين المحفوظة
+        let userPoints = 0;
+        let username = '';
+
+        function changeLanguage() {
+            const lang = document.getElementById('language-select').value;
+            // Implement language change logic here
+            alert("Language changed to: " + lang);
+        }
 
         function loginUser() {
-            const username = document.getElementById('username-input').value;
-            const password = document.getElementById('password-input').value;
-
-            if (!username || !password) {
-                alert('Please enter both username and password.');
-                return;
-            }
-
-            if (!users[username]) {
-                // إذا كان المستخدم جديدًا، يتم إنشاء حساب جديد
-                users[username] = {
-                    password: password,
-                    points: 0,
-                    currentDay: 0
-                };
-            } else if (users[username].password !== password) {
-                alert('Incorrect password!');
-                return;
-            }
-
-            currentUser = users[username];
+            username = document.getElementById('username-input').value;
+            document.getElementById('username-display').innerText = username;
             document.getElementById('login-page').style.display = 'none';
             document.getElementById('main-page').style.display = 'block';
-            document.getElementById('username').textContent = username;
-            document.getElementById('username-display').textContent = username;
-            document.getElementById('points').textContent = currentUser.points;
-
-            showDailyPopup();
-        }
-
-        function showDailyPopup() {
-            if (currentUser.currentDay < 12) {
-                document.getElementById('popup-day').textContent = currentUser.currentDay + 1;
-                document.getElementById('popup-points').textContent = (currentUser.currentDay + 1) * 100;
-                document.getElementById('daily-popup').classList.add('active');
-            }
-        }
-
-        function collectDailyPoints() {
-            const dailyPoints = (currentUser.currentDay + 1) * 100;
-            currentUser.points += dailyPoints;
-            currentUser.currentDay += 1;
-
-            document.getElementById('points').textContent = currentUser.points;
-            document.getElementById('daily-popup').classList.remove('active');
-
-            // حفظ بيانات المستخدم المحدثة
-            users[document.getElementById('username').textContent] = currentUser;
-            localStorage.setItem('users', JSON.stringify(users));
         }
 
         function completeTask(task) {
-            let taskPoints = 0;
             if (task === 'youtube') {
-                taskPoints = 10;
-            } else if (task === 'game') {
-                taskPoints = 20;
+                userPoints += 10;
+                document.getElementById('points').innerText = userPoints;
+                alert("You earned 10 points for subscribing!");
             }
-            currentUser.points += taskPoints;
-            document.getElementById('points').textContent = currentUser.points;
+        }
 
-            // حفظ بيانات المستخدم المحدثة
-            users[document.getElementById('username').textContent] = currentUser;
-            localStorage.setItem('users', JSON.stringify(users));
+        function shareOnFacebook() {
+            // Implement sharing logic
+            alert("Link shared on Facebook! You earned 50 points.");
+            userPoints += 50;
+            document.getElementById('points').innerText = userPoints;
         }
 
         function withdrawPoints() {
-            const pointsToWithdraw = parseInt(document.getElementById('withdraw-points').value);
-            const method = document.getElementById('withdraw-method').value;
-
-            if (isNaN(pointsToWithdraw) || pointsToWithdraw <= 0 || pointsToWithdraw > currentUser.points || pointsToWithdraw < 5000) {
-                alert('Invalid points or below minimum withdrawal limit of 5000 points!');
-                return;
+            const pointsToWithdraw = document.getElementById('withdraw-points').value;
+            if (pointsToWithdraw > userPoints) {
+                alert("You don't have enough points!");
+            } else {
+                userPoints -= pointsToWithdraw;
+                document.getElementById('points').innerText = userPoints;
+                alert("You have withdrawn " + pointsToWithdraw + " points!");
             }
-
-            currentUser.points -= pointsToWithdraw;
-            document.getElementById('points').textContent = currentUser.points;
-
-            let methodText = '';
-            if (method === 'wallet') {
-                methodText = 'Withdrawn to Wallet';
-            } else if (method === 'bank') {
-                methodText = 'Withdrawn to Bank';
-            } else if (method === 'convert') {
-                const tootAmount = Math.floor(pointsToWithdraw / 2000);
-                methodText = `Converted to ${tootAmount} TOOT`;
-            }
-
-            document.getElementById('withdraw-info').textContent = `You have withdrawn ${pointsToWithdraw} points. ${methodText}.`;
-
-            // حفظ بيانات المستخدم المحدثة
-            users[document.getElementById('username').textContent] = currentUser;
-            localStorage.setItem('users', JSON.stringify(users));
         }
 
         function share() {
-            const shareLink = document.getElementById('share-link').textContent;
-            navigator.clipboard.writeText(shareLink);
-            alert('Link copied to clipboard!');
+            const shareLink = document.getElementById('share-link');
+            navigator.clipboard.writeText(shareLink.innerText).then(() => {
+                alert('Link copied to clipboard!');
+            });
         }
-    </script>
 
+        function confirmTasks() {
+            document.getElementById('popup').classList.remove('active');
+        }
+
+        // Popup logic (Example)
+        setTimeout(() => {
+            document.getElementById('popup').classList.add('active');
+        }, 5000); // Show popup after 5 seconds
+    </script>
 </body>
 </html>

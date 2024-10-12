@@ -1,226 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earn TON Coins - Login</title>
+    <title>موقع ربح العملة TON</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             font-family: Arial, sans-serif;
-            color: #fff;
-            text-align: center;
-            position: relative;
-            background: url('https://media.giphy.com/media/26uf9P7dH9t7W6MeE/giphy.gif') no-repeat center center fixed;
+            background: url('your-background-image-url') no-repeat center center fixed;
             background-size: cover;
-        }
-        .marquee {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px 0;
-            position: absolute;
-            top: 0;
-            z-index: 10;
-            font-size: 1.5em;
-        }
-        .marquee-content {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 15s linear infinite;
-        }
-        @keyframes marquee {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-100%, 0); }
+            color: #fff;
         }
         .container {
-            margin-top: 80px;
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
         }
-        h1 {
-            font-size: 4em;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+        #main {
+            display: none;
         }
-        .login-form, .main-content {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+        .task {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            width: 300px;
-            margin: 20px auto;
-            text-align: left;
-        }
-        .login-form input, .main-content input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
-            font-size: 1.2em;
-        }
-        .login-form button {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2em;
-        }
-        .login-btn {
-            background-color: #4285F4;
-            color: white;
-        }
-        .share-link, .task-section, .user-info, .withdraw-section {
-            margin-top: 30px;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
-            width: 400px;
-            margin: 20px auto;
-            border: 2px solid rgba(0, 0, 255, 0.5);
-        }
-        .task-section ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .task-section li {
             margin: 10px 0;
-            font-size: 1.2em;
         }
-        .main-content {
-            background: url('https://images.unsplash.com/photo-1512207402473-5d4f52e0c3e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3MF8xfGFsbHwxfHx8fHx8fHwxNjEzMzU3NzE0&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
-            background-size: cover;
-            color: black;
-        }
-        .user-info p, .share-link h3, .task-section h3, .withdraw-section h3 {
-            color: red;
+        .task h3 {
+            margin: 0;
             font-size: 1.5em;
         }
-        .main-content h1 {
-            color: blue;
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-        .popup {
+        .button:hover {
+            background-color: #0056b3;
+        }
+        #withdraw-info {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        #popup-day, #popup-points {
+            font-size: 1.5em;
+        }
+        #daily-popup {
             display: none;
             position: fixed;
-            top: 50%;
             left: 50%;
+            top: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            z-index: 1000;
-            width: 300px;
-            text-align: center;
+            padding: 20px;
+            z-index: 100;
         }
-        .popup.active {
-            display: block;
-        }
-        .popup p {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .popup button {
-            padding: 10px 20px;
-            background-color: #4285F4;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-
-    <div class="marquee">
-        <div class="marquee-content">
-            <span>John Doe withdrew $20 | Jane Smith withdrew $15 | Alex Johnson withdrew $10 | ...</span>
-        </div>
-    </div>
-
-    <div class="container" id="login-page">
-        <h1>Login to Earn TON Coins</h1>
-        <div class="login-form">
-            <input type="text" id="username-input" placeholder="Enter Username" required>
-            <input type="password" id="password-input" placeholder="Enter Password" required>
-            <button class="login-btn" onclick="loginUser()">Login</button>
-        </div>
-    </div>
-
-    <div class="container main-content" id="main-page" style="display:none;">
-        <h1>Welcome, <span id="username-display">User</span></h1>
-
-        <div class="user-info">
-            <p>Username: <span id="username">User</span></p>
-            <p>Total Points: <span id="points">0</span></p>
+    <div class="container">
+        <h1>مرحبا بكم في موقع ربح العملة TON</h1>
+        <div id="login">
+            <h2>تسجيل الدخول</h2>
+            <input type="text" id="username" placeholder="اسم المستخدم" required>
+            <input type="password" id="password" placeholder="كلمة المرور" required>
+            <button onclick="login()">تسجيل الدخول</button>
         </div>
 
-        <div class="share-link">
-            <h3>Share and Earn 250 Points!</h3>
-            <p>Share this link: <a href="#" id="share-link">https://example.com</a></p>
-            <button onclick="share()">Copy Link</button>
-        </div>
+        <div id="main">
+            <h2>مرحبا، <span id="user-display"></span></h2>
+            <p>عدد النقاط: <span id="points">0</span></p>
+            <div class="task">
+                <h3>سحب النقاط</h3>
+                <input type="number" id="withdraw-points" placeholder="عدد النقاط المراد سحبها">
+                <select id="withdraw-method">
+                    <option value="wallet">محفظة</option>
+                    <option value="bank">بنك</option>
+                    <option value="convert">تحويل إلى توت</option>
+                </select>
+                <button onclick="withdrawPoints()">سحب النقاط</button>
+                <div id="withdraw-info"></div>
+            </div>
 
-        <div class="task-section">
-            <h3>Complete Tasks to Earn More Points:</h3>
-            <ul>
-                <li>Subscribe to our YouTube Channel and earn 10 points <button onclick="completeTask('youtube')">Subscribe</button></li>
-                <li>Play a game to earn 20 points <button onclick="completeTask('game')">Play Now</button></li>
-            </ul>
-        </div>
+            <div class="task">
+                <h3>اشترك في قناة يوتيوب</h3>
+                <p>اربح 10 نقاط عند الاشتراك!</p>
+                <a href="https://www.youtube.com/@-harsh5657" target="_blank" onclick="completeTask('youtube')" class="button">اشترك الآن</a>
+            </div>
 
-        <div class="withdraw-section">
-            <h3>Withdraw Points</h3>
-            <input type="number" id="withdraw-points" placeholder="Enter points to withdraw">
-            <select id="withdraw-method">
-                <option value="wallet">Withdraw to Wallet</option>
-                <option value="bank">Withdraw to Bank</option>
-                <option value="convert">Convert to TOOT</option>
-            </select>
-            <button onclick="withdrawPoints()">Withdraw</button>
-            <p id="withdraw-info"></p>
-        </div>
-    </div>
+            <button onclick="showDailyPopup()">جمع النقاط اليومية</button>
 
-    <!-- Popup for daily login -->
-    <div class="popup" id="daily-popup">
-        <p>Day <span id="popup-day">1</span>: Collect <span id="popup-points">100</span> Points!</p>
-        <button onclick="collectDailyPoints()">Collect</button>
+            <div id="daily-popup" class="hidden">
+                <p>يوم <span id="popup-day"></span>: جمعت <span id="popup-points"></span> نقاط!</p>
+                <button onclick="collectDailyPoints()">جمع النقاط</button>
+                <button onclick="document.getElementById('daily-popup').classList.remove('active')">إغلاق</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        let currentUser = null;
-        let users = JSON.parse(localStorage.getItem('users')) || {}; // تحميل بيانات المستخدمين المحفوظة
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        let currentUser = { points: 0, currentDay: 0 };
 
-        function loginUser() {
-            const username = document.getElementById('username-input').value;
-            const password = document.getElementById('password-input').value;
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-            if (!username || !password) {
-                alert('Please enter both username and password.');
-                return;
-            }
-
-            if (!users[username]) {
-                // إذا كان المستخدم جديدًا، يتم إنشاء حساب جديد
-                users[username] = {
-                    password: password,
-                    points: 0,
-                    currentDay: 0
-                };
-            } else if (users[username].password !== password) {
-                alert('Incorrect password!');
-                return;
+            if (users[username]) {
+                if (users[username].password !== password) {
+                    alert('كلمة المرور خاطئة!');
+                    return;
+                }
+            } else {
+                users[username] = { password: password, points: 0, currentDay: 0 };
             }
 
             currentUser = users[username];
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('main-page').style.display = 'block';
-            document.getElementById('username').textContent = username;
-            document.getElementById('username-display').textContent = username;
+            document.getElementById('user-display').textContent = username;
             document.getElementById('points').textContent = currentUser.points;
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('main').style.display = 'block';
 
             showDailyPopup();
         }
@@ -242,7 +148,7 @@
             document.getElementById('daily-popup').classList.remove('active');
 
             // حفظ بيانات المستخدم المحدثة
-            users[document.getElementById('username').textContent] = currentUser;
+            users[document.getElementById('username').value] = currentUser;
             localStorage.setItem('users', JSON.stringify(users));
         }
 
@@ -250,14 +156,12 @@
             let taskPoints = 0;
             if (task === 'youtube') {
                 taskPoints = 10;
-            } else if (task === 'game') {
-                taskPoints = 20;
             }
             currentUser.points += taskPoints;
             document.getElementById('points').textContent = currentUser.points;
 
             // حفظ بيانات المستخدم المحدثة
-            users[document.getElementById('username').textContent] = currentUser;
+            users[document.getElementById('username').value] = currentUser;
             localStorage.setItem('users', JSON.stringify(users));
         }
 
@@ -266,7 +170,7 @@
             const method = document.getElementById('withdraw-method').value;
 
             if (isNaN(pointsToWithdraw) || pointsToWithdraw <= 0 || pointsToWithdraw > currentUser.points || pointsToWithdraw < 5000) {
-                alert('Invalid points or below minimum withdrawal limit of 5000 points!');
+                alert('عدد النقاط غير صحيح أو أقل من الحد الأدنى للسحب 5000 نقطة!');
                 return;
             }
 
@@ -275,27 +179,20 @@
 
             let methodText = '';
             if (method === 'wallet') {
-                methodText = 'Withdrawn to Wallet';
+                methodText = 'تم السحب إلى المحفظة';
             } else if (method === 'bank') {
-                methodText = 'Withdrawn to Bank';
+                methodText = 'تم السحب إلى البنك';
             } else if (method === 'convert') {
                 const tootAmount = Math.floor(pointsToWithdraw / 2000);
-                methodText = `Converted to ${tootAmount} TOOT`;
+                methodText = `تم تحويلها إلى ${tootAmount} توت`;
             }
 
-            document.getElementById('withdraw-info').textContent = `You have withdrawn ${pointsToWithdraw} points. ${methodText}.`;
+            document.getElementById('withdraw-info').textContent = `لقد قمت بسحب ${pointsToWithdraw} نقطة. ${methodText}.`;
 
             // حفظ بيانات المستخدم المحدثة
-            users[document.getElementById('username').textContent] = currentUser;
+            users[document.getElementById('username').value] = currentUser;
             localStorage.setItem('users', JSON.stringify(users));
         }
-
-        function share() {
-            const shareLink = document.getElementById('share-link').textContent;
-            navigator.clipboard.writeText(shareLink);
-            alert('Link copied to clipboard!');
-        }
     </script>
-
 </body>
 </html>

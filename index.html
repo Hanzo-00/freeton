@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earn TON Coins</title>
     <style>
-        /* تصميم صفحة المستخدم */
         body {
             margin: 0;
             padding: 0;
@@ -16,8 +15,6 @@
             position: relative;
             overflow: hidden;
         }
-
-        /* خلفية متحركة */
         .background {
             position: absolute;
             top: 0;
@@ -31,7 +28,6 @@
             opacity: 0.7;
             animation: move 15s infinite alternate ease-in-out;
         }
-
         @keyframes move {
             from {
                 transform: scale(1.1);
@@ -40,18 +36,14 @@
                 transform: scale(1.2) translateY(20px);
             }
         }
-
         .container {
             z-index: 1;
             margin-top: 100px;
         }
-
         h1 {
             font-size: 3em;
             margin-bottom: 20px;
         }
-
-        /* تصميم النموذج */
         .login-form {
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
@@ -61,144 +53,58 @@
             text-align: left;
             margin-bottom: 20px;
         }
-
-        .login-form input {
+        .login-form button {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
             border: none;
-        }
-
-        .login-form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
-
-        .login-form button:hover {
-            background-color: #218838;
+        .google-btn {
+            background-color: #4285F4;
+            color: white;
         }
-
-        /* قسم النقاط والمشتركين */
-        #points-section, #subscribers-section {
+        .facebook-btn {
+            background-color: #4267B2;
+            color: white;
+        }
+        .google-btn:hover, .facebook-btn:hover {
+            opacity: 0.9;
+        }
+        #login-status {
             margin-top: 20px;
             font-size: 1.2em;
+            color: #28a745;
         }
-
-        /* زر ربط المحفظة */
-        .wallet-button {
-            background-color: #0066ff;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin: 10px;
-        }
-        .wallet-button:hover {
-            background-color: #0055cc;
-        }
-
     </style>
 </head>
 <body>
-    <!-- خلفية متحركة -->
     <div class="background"></div>
-
     <div class="container">
         <h1>Earn Free TON Coins!</h1>
 
-        <!-- خيارات تسجيل الدخول -->
         <div class="login-form">
             <h3>Login with:</h3>
-            <button id="googleSignIn" onclick="googleLogin()">Login with Google</button>
-            <button id="facebookSignIn" onclick="facebookLogin()">Login with Facebook</button>
+            <!-- Google Login Button -->
+            <button class="google-btn" onclick="googleLogin()">Login with Google</button>
+            <!-- Facebook Login Button -->
+            <button class="facebook-btn" onclick="facebookLogin()">Login with Facebook</button>
         </div>
 
-        <!-- Task 1: Share Referral Link -->
-        <button onclick="copyReferralLink()">Share Referral Link and Earn 5 Points</button>
+        <div id="login-status"></div>
 
-        <!-- Task 2: Subscribe to Telegram Channels -->
-        <button onclick="subscribeToChannels()">Subscribe to Channels and Earn Points</button>
-
-        <!-- عرض النقاط -->
-        <div id="points-section">
-            <h3>Your Current Points:</h3>
-            <span id="points">0</span> Points
-        </div>
-
-        <!-- عرض عدد المشتركين الثابت -->
-        <div id="subscribers-section">
-            <h3>Current Subscribers:</h3>
-            <span id="subscribers">1000</span> Subscribers
-        </div>
-
-        <!-- زر ربط المحفظة -->
-        <div>
-            <button class="wallet-button" onclick="connectWallet()">Connect Wallet</button>
-        </div>
     </div>
 
     <script>
-        // نقاط وهمية والمشتركين
-        let points = 0;
-        let subscribers = 1000;  // عدد المشتركين الثابت
-
-        // تسجيل الدخول باستخدام Google OAuth
         function googleLogin() {
-            alert('Google login is not yet configured.');
-            // هنا سيتم تنفيذ OAuth باستخدام Google
+            // بدلاً من Google OAuth الحقيقي، سنعرض رسالة وهمية
+            document.getElementById('login-status').textContent = "Successfully logged in with Google!";
         }
 
-        // تسجيل الدخول باستخدام Facebook OAuth
         function facebookLogin() {
-            alert('Facebook login is not yet configured.');
-            // هنا سيتم تنفيذ OAuth باستخدام Facebook
-        }
-
-        // وظيفة لمشاركة رابط الإحالة
-        function copyReferralLink() {
-            const referralLink = 'https://yourwebsite.com/ref/USERNAME';  // استبدال برابط حقيقي
-            navigator.clipboard.writeText(referralLink);
-            alert('Referral link copied! You earned 5 points.');
-            addPoints(5);
-        }
-
-        // وظيفة للاشتراك في القنوات
-        function subscribeToChannels() {
-            const channels = ['@channel1', '@channel2', '@channel3', '@channel4', '@channel5'];
-            let subscribedPoints = 0;
-
-            for (let i = 0; i < channels.length; i++) {
-                subscribedPoints += 10;  // 10 نقاط لكل قناة
-            }
-
-            alert(`Subscribed to all channels! You earned ${subscribedPoints} points.`);
-            addPoints(subscribedPoints);
-        }
-
-        // تحديث النقاط
-        function addPoints(newPoints) {
-            points += newPoints;
-            document.getElementById('points').textContent = points;
-        }
-
-        // زيادة عدد المشتركين الثابت لكل دخول
-        window.onload = function() {
-            subscribers += 1;
-            document.getElementById('subscribers').textContent = subscribers;
-        };
-
-        // ربط المحفظة
-        function connectWallet() {
-            alert('Connecting to wallet...');
-            // هنا يمكن إضافة دعم MetaMask أو محفظة أخرى
+            // بدلاً من Facebook OAuth الحقيقي، سنعرض رسالة وهمية
+            document.getElementById('login-status').textContent = "Successfully logged in with Facebook!";
         }
     </script>
 </body>

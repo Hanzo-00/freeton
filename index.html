@@ -3,88 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website</title>
+    <title>Earn TON Coins - Login</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f0f0;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            background: url('https://media.giphy.com/media/26uf9P7dH9t7W6MeE/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
         }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        #marquee {
-            background: #e0e0e0;
-            padding: 10px;
-            margin: 20px 0;
+        .marquee {
+            width: 100%;
             overflow: hidden;
             white-space: nowrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 0;
+            position: absolute;
+            top: 0;
+            z-index: 10;
+            font-size: 1.5em;
         }
-        #marquee-text {
+        .marquee-content {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 15s linear infinite;
+            animation: marquee 20s linear infinite; /* زيادة الوقت لجعل النص يتحرك ببطء */
         }
         @keyframes marquee {
-            0% { transform: translate(0); }
-            100% { transform: translate(-100%); }
+            from { transform: translate(0, 0); }
+            to { transform: translate(-100%, 0); }
         }
-        .share-button {
-            background: #007bff;
-            color: #fff;
-            padding: 10px 15px;
+        .container {
+            margin-top: 80px;
+        }
+        h1 {
+            font-size: 4em;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+        }
+        .login-form, .main-content {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 20px auto;
+            text-align: left;
+        }
+        .login-form input, .main-content input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 1.2em;
+        }
+        .login-form button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        .login-btn {
+            background-color: #4285F4;
+            color: white;
+        }
+        .share-link, .task-section, .user-info, .withdraw-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            width: 400px;
+            margin: 20px auto;
+            border: 2px solid rgba(0, 0, 255, 0.5);
+        }
+        .task-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task-section li {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .main-content {
+            background: url('https://images.unsplash.com/photo-1512207402473-5d4f52e0c3e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3MF8xfGFsbHwxfHx8fHx8fHwxNjEzMzU3NzE0&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
+            background-size: cover;
+            color: black;
+        }
+        .user-info p, .share-link h3, .task-section h3, .withdraw-section h3 {
+            color: red;
+            font-size: 1.5em;
+        }
+        .main-content h1 {
+            color: blue;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+        .popup.active {
+            display: block;
+        }
+        .popup p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .popup button {
+            padding: 10px 20px;
+            background-color: #4285F4;
+            color: white;
             border: none;
             border-radius: 5px;
+            font-size: 1.2em;
             cursor: pointer;
         }
-        .note {
-            color: red;
-            font-weight: bold;
+        /* New styles for language selection */
+        .language-selector {
+            margin-top: 20px; /* Add space above */
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Our Website!</h1>
-        <p id="description">Join us and earn points for every action!</p>
-        
-        <div id="marquee">
-            <span id="marquee-text">John Doe withdrew $20 | Jane Smith withdrew $15 | Alex Johnson withdrew $10 | ...</span>
+
+    <div class="marquee">
+        <div class="marquee-content">
+            <span id="marquee-text">John Doe withdrew $20 | Jane Smith withdrew $15 | Alex Johnson withdrew $10 | Michael Brown withdrew $5 | Sarah Connor withdrew $30 | ...</span>
+        </div>
+    </div>
+
+    <div class="container" id="login-page">
+        <h1 id="login-title">Login to Earn TON Coins</h1>
+        <select class="language-selector" id="language-select" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="fa">فارسی</option>
+            <option value="hi">हिंदी</option>
+            <option value="ru">Русский</option>
+            <option value="tr">Türkçe</option>
+        </select>
+        <div class="login-form">
+            <input type="text" id="username-input" placeholder="Enter Username" required>
+            <input type="password" id="password-input" placeholder="Enter Password" required>
+            <button class="login-btn" onclick="loginUser()">Login</button>
+        </div>
+    </div>
+
+    <div class="container main-content" id="main-page" style="display:none;">
+        <h1 id="welcome-title">Welcome, <span id="username-display">User</span></h1>
+
+        <div class="user-info">
+            <p>Username: <span id="username">User</span></p>
+            <p>Total Points: <span id="points">0</span></p>
         </div>
 
-        <h2>Share and Earn 50 Points!</h2>
-        <p>Each share earns you 50 points. You can redeem 4000 points for $1 or the equivalent in TON coins!</p>
-        <button class="share-button" onclick="shareLink()">Share this site</button>
+        <div class="share-link">
+            <h3>Share and Earn 50 Points!</h3>
+            <p>Share this link: <a href="#" id="share-link">https://hanzo-00.github.io/freeton/</a></p>
+            <button onclick="share()">Copy Link</button>
+            <div>
+                <button onclick="shareViaMessenger()">Share via Messenger</button>
+                <button onclick="shareViaTelegram()">Share on Telegram</button>
+                <button onclick="shareViaGroups()">Share in Groups</button>
+            </div>
+        </div>
 
-        <h3>Complete Tasks to Earn More Points:</h3>
-        <ul>
-            <li>Each YouTube subscription earns you 150 points!</li>
-            <li>Mandatory entry to the Telegram channel and subscription to all channels in the bot for 1500 points after confirmation: <a href="https://t.me/Earn_Toncoin_whalesbot?start=00070hnmq9">Join our Telegram Bot</a></li>
-        </ul>
+        <div class="task-section">
+            <h3>Complete Tasks to Earn More Points:</h3>
+            <ul>
+                <li>
+                    <span id="youtube-task">Subscribe to our YouTube Channel and earn 150 points</span>
+                    <a href="https://www.youtube.com/@-harsh5657" target="_blank" onclick="completeTask('youtube')">Subscribe</a>
+                </li>
+                <li>
+                    <span id="game-task">Play a game to earn points</span>
+                    <button onclick="completeTask('game')">Play Now</button>
+                </li>
+                <li>
+                    <span id="telegram-task">Join our Telegram Channel and subscribe to all channels to earn 1500 points</span>
+                    <a href="https://t.me/Earn_Toncoin_whalesbot?start=00070hnmq9" target="_blank" onclick="completeTask('telegram')">Join Telegram</a>
+                </li>
+            </ul>
+            <p id="note-upcoming-features">Upcoming features will be added soon!</p>
+        </div>
 
-        <div class="note">Note: More features will be announced soon!</div>
-        <p>Play Now - Coming Soon!</p>
+        <div class="withdraw-section">
+            <h3>Withdraw Points</h3>
+            <p>Select withdrawal method:</p>
+            <select id="withdrawal-method">
+                <option value="ton">TON Coins</option>
+                <option value="usd">USD</option>
+            </select>
+            <button onclick="withdraw()">Withdraw</button>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <p id="popup-message">You have logged in successfully!</p>
+        <button onclick="closePopup()">Close</button>
     </div>
 
     <script>
-        function shareLink() {
-            const message = "Join our community and earn points! Visit: https://hanzo-00.github.io/freeton/ \n" +
-                            "Earn points for every action and redeem them for cash!";
-            const shareOptions = `
-                1. Share via Messenger
-                2. Share in Groups
-                3. Share on Telegram
-                4. Copy Message`;
+        // Change language function
+        function changeLanguage() {
+            const lang = document.getElementById("language-select").value;
+            if (lang === "en") {
+                document.getElementById("login-title").innerText = "Login to Earn TON Coins";
+                document.getElementById("welcome-title").innerText = "Welcome, ";
+                document.getElementById("note-upcoming-features").innerText = "Upcoming features will be added soon!";
+                // Add more text replacements for English as needed
+            } else if (lang === "ar") {
+                document.getElementById("login-title").innerText = "تسجيل الدخول لكسب عملات تون";
+                document.getElementById("welcome-title").innerText = "أهلا بك، ";
+                document.getElementById("note-upcoming-features").innerText = "سيتم إضافة ميزات جديدة قريبًا!";
+                // Add more text replacements for Arabic as needed
+            } 
+            // Continue adding other languages...
+        }
 
-            alert(shareOptions + "\n\nMessage: " + message);
-            // Implement sharing functionality based on the selected option
+        function loginUser() {
+            const username = document.getElementById("username-input").value;
+            document.getElementById("username").innerText = username;
+            document.getElementById("username-display").innerText = username;
+            document.getElementById("login-page").style.display = "none";
+            document.getElementById("main-page").style.display = "block";
+            document.getElementById("popup-message").innerText = "You have logged in successfully!";
+            document.getElementById("popup").classList.add("active");
+        }
+
+        function closePopup() {
+            document.getElementById("popup").classList.remove("active");
+        }
+
+        function completeTask(task) {
+            alert(`Task ${task} completed! Points will be updated.`);
+            // Update points logic here
+        }
+
+        function withdraw() {
+            const method = document.getElementById("withdrawal-method").value;
+            alert(`You have withdrawn using ${method}!`);
+            // Withdraw logic here
+        }
+
+        function share() {
+            const link = document.getElementById("share-link").innerText;
+            navigator.clipboard.writeText(link);
+            alert("Link copied to clipboard!");
+        }
+
+        function shareViaMessenger() {
+            const link = document.getElementById("share-link").innerText;
+            window.open(`https://www.messenger.com/share?link=${encodeURIComponent(link)}`);
+        }
+
+        function shareViaTelegram() {
+            const link = document.getElementById("share-link").innerText;
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}`);
+        }
+
+        function shareViaGroups() {
+            const link = document.getElementById("share-link").innerText;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`);
         }
     </script>
 </body>

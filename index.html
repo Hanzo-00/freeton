@@ -3,283 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earn TON Coins - Login</title>
+    <title>Your Website</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            color: #fff;
-            text-align: center;
-            position: relative;
-            background: url('https://media.giphy.com/media/26uf9P7dH9t7W6MeE/giphy.gif') no-repeat center center fixed;
-            background-size: cover;
         }
-        .marquee {
-            width: 100%;
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #marquee {
+            background: #e0e0e0;
+            padding: 10px;
+            margin: 20px 0;
             overflow: hidden;
             white-space: nowrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px 0;
-            position: absolute;
-            top: 0;
-            z-index: 10;
-            font-size: 1.5em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .marquee-content {
+        #marquee-text {
             display: inline-block;
             padding-left: 100%;
             animation: marquee 15s linear infinite;
         }
         @keyframes marquee {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-100%, 0); }
+            0% { transform: translate(0); }
+            100% { transform: translate(-100%); }
         }
-        .container {
-            margin-top: 80px;
-        }
-        h1 {
-            font-size: 4em;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-        }
-        .login-form, .main-content {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            margin: 20px auto;
-            text-align: left;
-        }
-        .login-form input, .main-content input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
+        .share-button {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 15px;
             border: none;
-            font-size: 1.2em;
-        }
-        .login-form button {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
             border-radius: 5px;
-            border: none;
             cursor: pointer;
-            font-size: 1.2em;
         }
-        .login-btn {
-            background-color: #4285F4;
-            color: white;
-        }
-        .share-link, .task-section, .user-info, .withdraw-section {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
-            width: 400px;
-            margin: 20px auto;
-            border: 2px solid rgba(0, 0, 255, 0.5);
-        }
-        .task-section ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .task-section li {
-            margin: 10px 0;
-            font-size: 1.2em;
-        }
-        .main-content {
-            background: url('https://images.unsplash.com/photo-1512207402473-5d4f52e0c3e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3MF8xfGFsbHwxfHx8fHx8fHwxNjEzMzU3NzE0&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
-            background-size: cover;
-            color: black;
-        }
-        .user-info p, .share-link h3, .task-section h3, .withdraw-section h3 {
+        .note {
             color: red;
-            font-size: 1.5em;
-        }
-        .main-content h1 {
-            color: blue;
-        }
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 1000;
-            width: 300px;
-            text-align: center;
-        }
-        .popup.active {
-            display: block;
-        }
-        .popup p {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .popup button {
-            padding: 10px 20px;
-            background-color: #4285F4;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-        /* New styles for language selection */
-        .language-selector {
-            margin-top: 20px; /* Add space above */
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 1em;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-
-    <div class="marquee">
-        <div class="marquee-content">
-<span id="marquee-text">
-    John Doe withdrew $45 | Jane Smith withdrew $32 | Alex Johnson withdrew $78 | Emily Davis withdrew $12 | Michael Brown withdrew $59 | Sarah Wilson withdrew $24 | David Miller withdrew $88 | Jessica Garcia withdrew $37 | Chris Martinez withdrew $54 | Ashley Rodriguez withdrew $19 | Daniel Hernandez withdrew $66 | Maria Lopez withdrew $73 | Matthew Walker withdrew $92 | Samantha Hall withdrew $26 | William Allen withdrew $47 | Olivia Young withdrew $81 | Anthony King withdrew $36 | Isabella Wright withdrew $11 | Joshua Scott withdrew $95 | Mia Green withdrew $50 | Benjamin Adams withdrew $67 | Ava Nelson withdrew $83 | Samuel Carter withdrew $14 | Sophia Mitchell withdrew $27 | Elijah Perez withdrew $72 | Charlotte Roberts withdrew $49 | Jacob Turner withdrew $65 | Amelia Phillips withdrew $93 | Ethan Campbell withdrew $21 | Harper Parker withdrew $38 | James Evans withdrew $46 | Lily Edwards withdrew $70 | Alexander Collins withdrew $86 | Grace Stewart withdrew $40 | Daniel Sanchez withdrew $55 | Scarlett Morris withdrew $60 | Aiden Rivera withdrew $82 | Chloe Cooper withdrew $15 | Noah Reed withdrew $30 | Ella Bailey withdrew $68 | Lucas Bell withdrew $34 | Madison Gomez withdrew $91 | Jackson Wood withdrew $39 | Aria Bennett withdrew $99 | Leo Murphy withdrew $62 | Lily Price withdrew $17 | Nathan Jenkins withdrew $29 | Zoe Simmons withdrew $75 | Christopher Foster withdrew $22 | Ella Harrison withdrew $41
-</span>
-        </div>
-    </div>
-
-    <div class="container" id="login-page">
-        <h1 id="login-title">Login to Earn TON Coins</h1>
-        <select class="language-selector" id="language-select" onchange="changeLanguage()">
-            <option value="en">English</option>
-            <option value="ar">العربية</option>
-            <option value="fa">فارسی</option>
-            <option value="hi">हिंदी</option>
-            <option value="ru">Русский</option>
-            <option value="tr">Türkçe</option>
-        </select>
-        <div class="login-form">
-            <input type="text" id="username-input" placeholder="Enter Username" required>
-            <input type="password" id="password-input" placeholder="Enter Password" required>
-            <button class="login-btn" onclick="loginUser()">Login</button>
-        </div>
-    </div>
-
-    <div class="container main-content" id="main-page" style="display:none;">
-        <h1 id="welcome-title">Welcome, <span id="username-display">User</span></h1>
-        <p style="color: red;">Join our community and earn points!</p> <!-- Welcome message -->
+    <div class="container">
+        <h1>Welcome to Our Website!</h1>
+        <p id="description">Join us and earn points for every action!</p>
         
-        <div class="user-info">
-            <p>Username: <span id="username">User</span></p>
-            <p>Total Points: <span id="points">0</span></p>
+        <div id="marquee">
+            <span id="marquee-text">John Doe withdrew $20 | Jane Smith withdrew $15 | Alex Johnson withdrew $10 | ...</span>
         </div>
 
-        <div class="share-link">
-            <h3>Share and Earn 50 Points!</h3>
-            <p>Share this link: <a href="https://hanzo-00.github.io/freeton/#" id="share-link">https://hanzo-00.github.io/freeton/#</a></p>
-            <button onclick="share()">Copy Link</button>
-        </div>
+        <h2>Share and Earn 50 Points!</h2>
+        <p>Each share earns you 50 points. You can redeem 4000 points for $1 or the equivalent in TON coins!</p>
+        <button class="share-button" onclick="shareLink()">Share this site</button>
 
-        <div class="task-section">
-            <h3>Complete Tasks to Earn More Points:</h3>
-            <ul>
-                <li>
-                    <span id="youtube-task">Subscribe to our YouTube Channel and earn 100 points</span>
-                    <a href="https://www.youtube.com/@-harsh5657" target="_blank" onclick="completeTask('youtube')">Subscribe</a>
-                </li>
-                <li>
-                    <span id="game-task">Play a game to earn 20 points (coming soon)</span>
-                </li>
-                <li>
-                    <span id="invite-task">Join our Telegram bot for 1000 points (must join all channels)</span>
-                    <a href="https://t.me/Earn_Toncoin_whalesbot?start=00070hnmq9" target="_blank">Join Bot</a>
-                </li>
-                <li>
-                    <span id="share-fb-task">Share this link on Facebook for 50 points</span>
-                    <button onclick="shareOnFacebook()">Share</button>
-                </li>
-            </ul>
-        </div>
+        <h3>Complete Tasks to Earn More Points:</h3>
+        <ul>
+            <li>Each YouTube subscription earns you 150 points!</li>
+            <li>Mandatory entry to the Telegram channel and subscription to all channels in the bot for 1500 points after confirmation: <a href="https://t.me/Earn_Toncoin_whalesbot?start=00070hnmq9">Join our Telegram Bot</a></li>
+        </ul>
 
-        <div class="withdraw-section">
-            <h3>Withdraw Points</h3>
-            <input type="number" id="withdraw-points" placeholder="Enter points to withdraw">
-            <select id="withdraw-method">
-                <option value="wallet">Withdraw to Wallet</option>
-                <option value="bank">Withdraw to Bank</option>
-                <option value="transfer">Transfer to another user</option>
-            </select>
-            <button onclick="withdrawPoints()">Withdraw</button>
-        </div>
-
-        <div class="popup" id="popup">
-            <p>You have completed the tasks!</p>
-            <button onclick="confirmTasks()">Confirm</button>
-        </div>
+        <div class="note">Note: More features will be announced soon!</div>
+        <p>Play Now - Coming Soon!</p>
     </div>
 
     <script>
-        let userPoints = 0;
-        let username = '';
+        function shareLink() {
+            const message = "Join our community and earn points! Visit: https://hanzo-00.github.io/freeton/ \n" +
+                            "Earn points for every action and redeem them for cash!";
+            const shareOptions = `
+                1. Share via Messenger
+                2. Share in Groups
+                3. Share on Telegram
+                4. Copy Message`;
 
-        function changeLanguage() {
-            const lang = document.getElementById('language-select').value;
-            // Implement language change logic here
-            alert("Language changed to: " + lang);
+            alert(shareOptions + "\n\nMessage: " + message);
+            // Implement sharing functionality based on the selected option
         }
-
-        function loginUser() {
-            username = document.getElementById('username-input').value;
-            document.getElementById('username-display').innerText = username;
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('main-page').style.display = 'block';
-        }
-
-        function completeTask(task) {
-            if (task === 'youtube') {
-                userPoints += 10;
-                document.getElementById('points').innerText = userPoints;
-                alert("You earned 10 points for subscribing!");
-            }
-        }
-
-        function shareOnFacebook() {
-            // Implement sharing logic
-            alert("Link shared on Facebook! You earned 50 points.");
-            userPoints += 50;
-            document.getElementById('points').innerText = userPoints;
-        }
-
-        function withdrawPoints() {
-            const pointsToWithdraw = document.getElementById('withdraw-points').value;
-            if (pointsToWithdraw > userPoints) {
-                alert("You don't have enough points!");
-            } else {
-                userPoints -= pointsToWithdraw;
-                document.getElementById('points').innerText = userPoints;
-                alert("You have withdrawn " + pointsToWithdraw + " points!");
-            }
-        }
-
-        function share() {
-            const shareLink = document.getElementById('share-link');
-            navigator.clipboard.writeText(shareLink.innerText).then(() => {
-                alert('Link copied to clipboard!');
-            });
-        }
-
-        function confirmTasks() {
-            document.getElementById('popup').classList.remove('active');
-        }
-
-        // Popup logic (Example)
-        setTimeout(() => {
-            document.getElementById('popup').classList.add('active');
-        }, 5000); // Show popup after 5 seconds
     </script>
 </body>
 </html>

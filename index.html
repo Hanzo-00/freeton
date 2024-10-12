@@ -30,7 +30,7 @@
         .marquee-content {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 20s linear infinite; /* زيادة الوقت لجعل النص يتحرك ببطء */
+            animation: marquee 30s linear infinite; /* Increased duration for slower scrolling */
         }
         @keyframes marquee {
             from { transform: translate(0, 0); }
@@ -120,6 +120,7 @@
         .popup p {
             font-size: 1.5em;
             margin-bottom: 20px;
+            color: red; /* Change popup text color to red */
         }
         .popup button {
             padding: 10px 20px;
@@ -139,6 +140,26 @@
             border-radius: 5px;
             padding: 10px;
             font-size: 1em;
+        }
+        /* Styles for withdraw points input */
+        .withdraw-points-input {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            font-size: 1.2em;
+        }
+        .withdraw-btn {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            background-color: #f39c12; /* Background color for withdraw buttons */
+            color: white;
         }
     </style>
 </head>
@@ -184,105 +205,131 @@
                 <button onclick="shareViaTelegram()">Share on Telegram</button>
                 <button onclick="shareViaGroups()">Share in Groups</button>
             </div>
-        </div>
+<p>Our site provides you with points, and when you reach 10,000 points, you can withdraw them for $1 or its equivalent in Toon currency for every 10,000 points.</p>        </div>
 
         <div class="task-section">
             <h3>Complete Tasks to Earn More Points:</h3>
             <ul>
                 <li>
                     <span id="youtube-task">Subscribe to our YouTube Channel and earn 150 points</span>
-                    <a href="https://www.youtube.com/@-harsh5657" target="_blank" onclick="completeTask('youtube')">Subscribe</a>
+                    <a href="https://www.youtube.com/@-harsh5657" target="_blank" onclick="openYouTubeAndConfirm()">Subscribe</a>
                 </li>
                 <li>
                     <span id="game-task">Play a game to earn points</span>
                     <button onclick="completeTask('game')">Play Now</button>
                 </li>
                 <li>
-                    <span id="telegram-task">Join our Telegram Channel and subscribe to all channels to earn 1500 points</span>
-                    <a href="https://t.me/Earn_Toncoin_whalesbot?start=00070hnmq9" target="_blank" onclick="completeTask('telegram')">Join Telegram</a>
+                    <span id="telegram-task">Join our Telegram channel and earn 1500 points</span>
+                    <a href="https://t.me/key4ham" target="_blank">Join Channel</a>
                 </li>
             </ul>
-            <p id="note-upcoming-features">Upcoming features will be added soon!</p>
         </div>
 
         <div class="withdraw-section">
-            <h3>Withdraw Points</h3>
-            <p>Select withdrawal method:</p>
-            <select id="withdrawal-method">
-                <option value="ton">TON Coins</option>
-                <option value="usd">USD</option>
-            </select>
-            <button onclick="withdraw()">Withdraw</button>
+            <h3>Withdraw Your Points:</h3>
+            <input type="number" class="withdraw-points-input" id="withdraw-points-input" placeholder="Enter points to withdraw" required>
+            <button class="withdraw-btn" onclick="withdrawPoints('bank')">Withdraw via Bank</button>
+            <button class="withdraw-btn" onclick="withdrawPoints('wallet')">Withdraw via Wallet</button>
         </div>
     </div>
 
     <div class="popup" id="popup">
-        <p id="popup-message">You have logged in successfully!</p>
-        <button onclick="closePopup()">Close</button>
+        <p>You have earned 100 points for your daily login!</p>
+        <button onclick="closePopup()">Claim Points</button>
     </div>
 
     <script>
-        // Change language function
+        let totalPoints = 0;
+        let dailyLogins = 0;
+
         function changeLanguage() {
-            const lang = document.getElementById("language-select").value;
-            if (lang === "en") {
-                document.getElementById("login-title").innerText = "Login to Earn TON Coins";
-                document.getElementById("welcome-title").innerText = "Welcome, ";
-                document.getElementById("note-upcoming-features").innerText = "Upcoming features will be added soon!";
-                // Add more text replacements for English as needed
-            } else if (lang === "ar") {
-                document.getElementById("login-title").innerText = "تسجيل الدخول لكسب عملات تون";
-                document.getElementById("welcome-title").innerText = "أهلا بك، ";
-                document.getElementById("note-upcoming-features").innerText = "سيتم إضافة ميزات جديدة قريبًا!";
-                // Add more text replacements for Arabic as needed
-            } 
-            // Continue adding other languages...
+            const language = document.getElementById('language-select').value;
+            // Change the site language based on selection
+            // You can replace the content here with actual translations.
+            if (language === 'en') {
+                document.getElementById('welcome-title').innerText = 'Welcome, ';
+                document.getElementById('login-title').innerText = 'Login to Earn TON Coins';
+            } else if (language === 'ar') {
+                document.getElementById('welcome-title').innerText = 'مرحبًا بك ، ';
+                document.getElementById('login-title').innerText = 'تسجيل الدخول لكسب عملات TON';
+            }
+            // Add more translations as needed
         }
 
         function loginUser() {
-            const username = document.getElementById("username-input").value;
-            document.getElementById("username").innerText = username;
-            document.getElementById("username-display").innerText = username;
-            document.getElementById("login-page").style.display = "none";
-            document.getElementById("main-page").style.display = "block";
-            document.getElementById("popup-message").innerText = "You have logged in successfully!";
-            document.getElementById("popup").classList.add("active");
+            const username = document.getElementById('username-input').value;
+            const password = document.getElementById('password-input').value;
+
+            // Simulate successful login
+            document.getElementById('username-display').innerText = username;
+            document.getElementById('username').innerText = username;
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+
+            dailyLogins++;
+            totalPoints += 100;
+            showPopup();
+        }
+
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            popup.classList.add('active');
         }
 
         function closePopup() {
-            document.getElementById("popup").classList.remove("active");
-        }
-
-        function completeTask(task) {
-            alert(`Task ${task} completed! Points will be updated.`);
-            // Update points logic here
-        }
-
-        function withdraw() {
-            const method = document.getElementById("withdrawal-method").value;
-            alert(`You have withdrawn using ${method}!`);
-            // Withdraw logic here
+            const popup = document.getElementById('popup');
+            popup.classList.remove('active');
+            // Reset points after claiming
+            totalPoints += 100; // Add points for claiming
+            document.getElementById('points').innerText = totalPoints;
         }
 
         function share() {
-            const link = document.getElementById("share-link").innerText;
-            navigator.clipboard.writeText(link);
-            alert("Link copied to clipboard!");
+            const shareLink = document.getElementById('share-link').innerText;
+            navigator.clipboard.writeText(shareLink).then(() => {
+                alert('Link copied to clipboard!');
+            });
         }
 
         function shareViaMessenger() {
-            const link = document.getElementById("share-link").innerText;
-            window.open(`https://www.messenger.com/share?link=${encodeURIComponent(link)}`);
+            // Implement Messenger share logic
+            alert('Share via Messenger clicked');
         }
 
         function shareViaTelegram() {
-            const link = document.getElementById("share-link").innerText;
-            window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}`);
+            // Implement Telegram share logic
+            alert('Share on Telegram clicked');
         }
 
         function shareViaGroups() {
-            const link = document.getElementById("share-link").innerText;
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`);
+            // Implement group share logic
+            alert('Share in Groups clicked');
+        }
+
+        function openYouTubeAndConfirm() {
+            // Open YouTube in new tab and simulate task completion
+            window.open('https://www.youtube.com/@-harsh5657', '_blank');
+            completeTask('youtube');
+        }
+
+        function completeTask(task) {
+            if (task === 'youtube') {
+                totalPoints += 150;
+                document.getElementById('points').innerText = totalPoints;
+                alert('You earned 150 points for subscribing!');
+            } else if (task === 'game') {
+                alert('Game feature coming soon!');
+            } else if (task === 'telegram') {
+                totalPoints += 1500;
+                document.getElementById('points').innerText = totalPoints;
+                alert('You earned 1500 points for joining the Telegram channel!');
+            }
+        }
+
+        function withdrawPoints(method) {
+            const pointsToWithdraw = document.getElementById('withdraw-points-input').value;
+            // Implement withdrawal logic
+            alert(`Withdraw ${pointsToWithdraw} points via ${method}`);
         }
     </script>
 </body>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earn TON Coins</title>
     <style>
-        /* خلفية متحركة */
+        /* تصميم صفحة المستخدم */
         body {
             margin: 0;
             padding: 0;
@@ -17,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* تأثيرات الخلفية المتحركة */
+        /* خلفية متحركة */
         .background {
             position: absolute;
             top: 0;
@@ -32,7 +32,6 @@
             animation: move 15s infinite alternate ease-in-out;
         }
 
-        /* حركة الخلفية */
         @keyframes move {
             from {
                 transform: scale(1.1);
@@ -52,14 +51,48 @@
             margin-bottom: 20px;
         }
 
-        p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
+        /* تصميم النموذج */
+        .login-form {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 0 auto;
+            text-align: left;
+            margin-bottom: 20px;
         }
 
-        /* زر مخصص */
-        button {
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 10px;
             background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #218838;
+        }
+
+        /* قسم النقاط والمشتركين */
+        #points-section, #subscribers-section {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        /* زر ربط المحفظة */
+        .wallet-button {
+            background-color: #0066ff;
             color: white;
             padding: 15px 30px;
             border: none;
@@ -67,39 +100,11 @@
             font-size: 1.2em;
             cursor: pointer;
             margin: 10px;
-            transition: background-color 0.3s, transform 0.3s;
+        }
+        .wallet-button:hover {
+            background-color: #0055cc;
         }
 
-        button:hover {
-            background-color: #218838;
-            transform: scale(1.1);
-        }
-
-        /* قسم عرض النقاط */
-        #points-section {
-            margin-top: 50px;
-        }
-
-        #points {
-            font-size: 2em;
-            color: #FFD700;
-        }
-
-        /* قسم المشتركين */
-        #subscribers {
-            font-size: 1.5em;
-            color: #00FFFF;
-            margin-top: 20px;
-        }
-
-        /* إطار وعدد المشتركين */
-        .counter {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: 30px;
-        }
     </style>
 </head>
 <body>
@@ -108,52 +113,70 @@
 
     <div class="container">
         <h1>Earn Free TON Coins!</h1>
-        <p>Complete tasks to earn TON coins directly to your wallet.</p>
+
+        <!-- خيارات تسجيل الدخول -->
+        <div class="login-form">
+            <h3>Login with:</h3>
+            <button id="googleSignIn" onclick="googleLogin()">Login with Google</button>
+            <button id="facebookSignIn" onclick="facebookLogin()">Login with Facebook</button>
+        </div>
 
         <!-- Task 1: Share Referral Link -->
-        <div class="task">
-            <button onclick="copyReferralLink()">Share Referral Link and Earn 5 Points</button>
-        </div>
+        <button onclick="copyReferralLink()">Share Referral Link and Earn 5 Points</button>
 
         <!-- Task 2: Subscribe to Telegram Channels -->
-        <div class="task">
-            <button onclick="subscribeToChannels()">Subscribe to Channels and Earn Points</button>
-        </div>
+        <button onclick="subscribeToChannels()">Subscribe to Channels and Earn Points</button>
 
         <!-- عرض النقاط -->
-        <div id="points-section" class="counter">
+        <div id="points-section">
             <h3>Your Current Points:</h3>
             <span id="points">0</span> Points
         </div>
 
-        <!-- عدد المشتركين في الموقع -->
-        <div id="subscribers-section" class="counter">
+        <!-- عرض عدد المشتركين الثابت -->
+        <div id="subscribers-section">
             <h3>Current Subscribers:</h3>
-            <span id="subscribers">500</span> Subscribers
+            <span id="subscribers">1000</span> Subscribers
+        </div>
+
+        <!-- زر ربط المحفظة -->
+        <div>
+            <button class="wallet-button" onclick="connectWallet()">Connect Wallet</button>
         </div>
     </div>
 
     <script>
-        // نقاط المستخدم الوهمية
+        // نقاط وهمية والمشتركين
         let points = 0;
-        let subscribers = 500; // عدد المشتركين في الموقع
+        let subscribers = 1000;  // عدد المشتركين الثابت
 
-        // وظيفة مشاركة الرابط
+        // تسجيل الدخول باستخدام Google OAuth
+        function googleLogin() {
+            alert('Google login is not yet configured.');
+            // هنا سيتم تنفيذ OAuth باستخدام Google
+        }
+
+        // تسجيل الدخول باستخدام Facebook OAuth
+        function facebookLogin() {
+            alert('Facebook login is not yet configured.');
+            // هنا سيتم تنفيذ OAuth باستخدام Facebook
+        }
+
+        // وظيفة لمشاركة رابط الإحالة
         function copyReferralLink() {
-            const referralLink = 'https://yourwebsite.com/ref/USERNAME'; // استبدل برابط حقيقي
+            const referralLink = 'https://yourwebsite.com/ref/USERNAME';  // استبدال برابط حقيقي
             navigator.clipboard.writeText(referralLink);
             alert('Referral link copied! You earned 5 points.');
             addPoints(5);
         }
 
-        // وظيفة الاشتراك في القنوات
+        // وظيفة للاشتراك في القنوات
         function subscribeToChannels() {
             const channels = ['@channel1', '@channel2', '@channel3', '@channel4', '@channel5'];
             let subscribedPoints = 0;
 
-            // محاكاة اشتراك في القنوات
             for (let i = 0; i < channels.length; i++) {
-                subscribedPoints += 10; // 10 نقاط لكل قناة
+                subscribedPoints += 10;  // 10 نقاط لكل قناة
             }
 
             alert(`Subscribed to all channels! You earned ${subscribedPoints} points.`);
@@ -166,12 +189,17 @@
             document.getElementById('points').textContent = points;
         }
 
-        // تحديث عدد المشتركين بشكل وهمي
-        setInterval(() => {
-            subscribers += Math.floor(Math.random() * 5); // زيادة عدد وهمي للمشتركين
+        // زيادة عدد المشتركين الثابت لكل دخول
+        window.onload = function() {
+            subscribers += 1;
             document.getElementById('subscribers').textContent = subscribers;
-        }, 5000); // تحديث كل 5 ثوانٍ
+        };
 
+        // ربط المحفظة
+        function connectWallet() {
+            alert('Connecting to wallet...');
+            // هنا يمكن إضافة دعم MetaMask أو محفظة أخرى
+        }
     </script>
 </body>
 </html>
